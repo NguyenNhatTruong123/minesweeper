@@ -5,11 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css.css" />
   </head>
-  <body>
-    <body style="text-align: center; line-height: 200%">
+  <body onload="setUpTableGrid()">
+    <div style="display: flex">
+      <div>
+        <p>Chọn kích cỡ:</p>
+        <select name="gridSize" id="gridSize" onchange="changeGridSize()">
+          <option value="15">15x15</option>
+          <option value="20">20x20</option>
+          <option value="25">25x25</option>
+          <option value="30">30x25</option>
+        </select>
+      </div>
+
+      <div>
+        <p>Chọn số lượng bom:</p>
+        <select name="numBoom" id="numBoom" onchange="changeNumBooms()">
+          <option value="0.1">10%</option>
+          <option value="0.25">25%</option>
+          <option value="0.35">35%</option>
+          <option value="0.5">50%</option>
+        </select>
+      </div>
+
+      <!-- <body style="text-align: center; line-height: 200%"> -->
       <div id="grid"></div>
       <br />
-    </body>
+      <!-- </body> -->
+    </div>
   </body>
   <script src="./cell.js"></script>
   <script src="./scripts.js"></script>

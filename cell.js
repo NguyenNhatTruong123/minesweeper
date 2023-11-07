@@ -1,15 +1,31 @@
 class Cell {
-    constructor(i, j, numCells) {
+    constructor(i, j, numCols, numRows, numBooms) {
         this.i = i
         this.j = j
-        if (Math.random(1) > 0.75) {
+        if (Math.random(1) > 1 - numBooms) {
             this.bee = true
         } else {
             this.bee = false
         }
         this.reveal = false
         this.neighborBee = -1
-        this.numCells = numCells
+        this.numCols = numCols
+        this.numRows = numRows
+
+        switch (numCols) {
+            case 15:
+                this.style = "width: 5vh; height: 5vh; font-size: larger"
+                break;
+            case 20:
+                this.style = "width: 4vh; height: 4vh"
+                break;
+            case 25:
+                this.style = "width: 3.2vh; height: 3.2vh"
+                break;
+            case 30:
+                this.style = "width: 3.2vh; height: 3.2vh"
+                break;
+        }
     }
 
     countBee(thisI, thisJ) {
@@ -19,7 +35,7 @@ class Cell {
             for (let j = -1; j <= 1; j++) {
                 let row = thisI + i
                 let col = thisJ + j
-                if (row > -1 && row < this.numCells && col > - 1 && col < this.numCells) {
+                if (row > -1 && row < this.numRows && col > - 1 && col < this.numCols) {
                     if (Cells[row][col].bee) {
                         count++;
                     }
@@ -33,18 +49,18 @@ class Cell {
     pinFlag(i, j) {
         let td = document.getElementById(i + "&" + j)
         td.innerHTML = "&#128681"
-        td.style = "background-color: lightgreen"
+        td.style = "background-color: lightgreen;" + this.style
     }
 
     showAllCell() {
-        for (let i = 0; i < numCells; i++) {
-            for (let j = 0; j < numCells; j++) {
+        for (let i = 0; i < this.numRows; i++) {
+            for (let j = 0; j < this.numCols; j++) {
                 let td = document.getElementById(i + "&" + j)
                 if (Cells[i][j].bee) {
                     td.innerHTML = "💣"
-                    td.style = "background-color: red"
+                    td.style = "background-color: red;" + this.style
                 } else {
-                    td.style = "background-color: lightgrey"
+                    td.style = "background-color: lightgrey;" + this.style
                     if (Cells[i][j].neighborBee == 0) {
                         td.innerHTML = ""
                     } else {
@@ -61,7 +77,7 @@ class Cell {
         if (Cells[i][j].bee) {
             this.showAllCell()
         } else {
-            td.style = "background-color: lightgrey"
+            td.style = "background-color: lightgrey;" + this.style
             if (Cells[i][j].neighborBee == 0) {
                 td.innerHTML = ""
                 this.floodFill(i, j)
@@ -76,7 +92,7 @@ class Cell {
             for (let j = -1; j <= 1; j++) {
                 let row = thisI + i
                 let col = thisJ + j
-                if (row > -1 && row < this.numCells && col > -1 && col < this.numCells) {
+                if (row > -1 && row < this.numRows && col > -1 && col < this.numCols) {
                     if (!Cells[row][col].bee && !Cells[row][col].reveal) {
                         this.showCell(row, col)
                     }

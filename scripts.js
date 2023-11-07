@@ -1,32 +1,79 @@
-// import { Cell } from "./cell";
 document.addEventListener('contextmenu', event => event.preventDefault());
 var grid = document.getElementById("grid")
 
-var gridHTML = "<table>";
-var numCells = 15;
-var Cells = new Array(numCells)
+var numCellsCols = 15;
+var numCellsRows = 15;
+var Cells;
+var tableGridValue = parseInt(document.getElementById("gridSize").value);
+var numBooms = parseFloat(document.getElementById("numBoom").value);
 
-for (let i = 0; i < numCells; i++) {
-    Cells[i] = new Array(numCells)
+function changeGridSize() {
+    tableGridValue = parseInt(document.getElementById("gridSize").value);
+    if (tableGridValue !== 30) {
+        numCellsCols = tableGridValue
+        numCellsRows = tableGridValue
+    } else {
+        numCellsCols = 30
+        numCellsRows = 25
+    }
+    setUpTableGrid()
 }
 
-for (let i = 0; i < numCells; i++) {
-    gridHTML = gridHTML + "<tr>";
-    for (let j = 0; j < numCells; j++) {
-        let id = i + "&" + j
-        let cell = new Cell(i, j, numCells)
-        Cells[i][j] = cell
-        gridHTML = gridHTML + "<td id=" + id + " onclick=clickCell(" + i + "," + j + ") oncontextmenu=setFlag(" + i + "," + j + ")> <br></td>";
-    }
-    gridHTML = gridHTML + "</tr>";
+function changeNumBooms() {
+    numBooms = parseFloat(document.getElementById("numBoom").value);
+    setUpTableGrid()
 }
-gridHTML = gridHTML + "</table>";
-grid.innerHTML = gridHTML;
 
-for (let i = 0; i < numCells; i++) {
-    for (let j = 0; j < numCells; j++) {
-        Cells[i][j].countBee(i, j)
+function setUpTableGrid() {
+    grid.innerHTML = ""
+    var gridTable = document.createElement('table')
+    Cells = new Array(numCellsRows)
+
+    for (let i = 0; i < numCellsRows; i++) {
+        Cells[i] = new Array(numCellsCols)
     }
+
+    for (let i = 0; i < numCellsRows; i++) {
+        var gridTableRecord = document.createElement("tr")
+        for (let j = 0; j < numCellsCols; j++) {
+            let cell = new Cell(i, j, numCellsCols, numCellsRows, numBooms)
+            Cells[i][j] = cell
+            let tableData = createTdElement(i, j)
+            gridTableRecord.appendChild(tableData)
+        }
+        gridTable.appendChild(gridTableRecord)
+    }
+    grid.appendChild(gridTable)
+
+    for (let i = 0; i < numCellsRows; i++) {
+        for (let j = 0; j < numCellsCols; j++) {
+            Cells[i][j].countBee(i, j)
+        }
+    }
+}
+
+function createTdElement(i, j) {
+    let td = document.createElement("td");
+    td.id = i + "&" + j
+
+    td.setAttribute('onclick', "clickCell(" + i + "," + j + ")");
+    td.setAttribute('oncontextmenu', "setFlag(" + i + "," + j + ")");
+
+    switch (tableGridValue) {
+        case 15:
+            td.style = "width: 5vh; height: 5vh; font-size: larger"
+            break;
+        case 20:
+            td.style = "width: 4vh; height: 4vh"
+            break;
+        case 25:
+            td.style = "width: 3.2vh; height: 3.2vh"
+            break;
+        case 30:
+            td.style = "width: 3.2vh; height: 3.2vh"
+            break;
+    }
+    return td;
 }
 
 function clickCell(i, j) {
