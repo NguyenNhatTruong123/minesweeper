@@ -6,31 +6,32 @@
     <link rel="stylesheet" href="css.css" />
   </head>
   <body onload="setUpTableGrid()">
-    <div style="display: flex">
-      <div>
-        <p>Chọn kích cỡ:</p>
-        <select name="gridSize" id="gridSize" onchange="changeGridSize()">
-          <option value="15">15x15</option>
-          <option value="20">20x20</option>
-          <option value="25">25x25</option>
-          <option value="30">30x25</option>
-        </select>
+    <div style="display: flex; gap: 50px">
+      <div id="setting">
+        <div>
+          <p>Chọn kích cỡ:</p>
+          <select name="gridSize" id="gridSize" onchange="changeGridSize()">
+            <option value="15">15x15</option>
+            <option value="20">20x20</option>
+            <option value="25">25x25</option>
+            <option value="30">30x25</option>
+          </select>
+        </div>
+
+        <div>
+          <p>Chọn số lượng bom:</p>
+          <select name="numBoom" id="numBoom" onchange="changeNumBooms()">
+            <option value="0.1">10%</option>
+            <option value="0.25">25%</option>
+            <option value="0.35">35%</option>
+            <option value="0.5">50%</option>
+          </select>
+        </div>
+        <button type="button" onclick="restart()">Restart the game</button>
       </div>
 
-      <div>
-        <p>Chọn số lượng bom:</p>
-        <select name="numBoom" id="numBoom" onchange="changeNumBooms()">
-          <option value="0.1">10%</option>
-          <option value="0.25">25%</option>
-          <option value="0.35">35%</option>
-          <option value="0.5">50%</option>
-        </select>
-      </div>
-
-      <!-- <body style="text-align: center; line-height: 200%"> -->
       <div id="grid"></div>
       <br />
-      <!-- </body> -->
     </div>
   </body>
   <script src="./cell.js"></script>

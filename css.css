@@ -14,5 +14,12 @@ td {
 }
 
 p {
+    height: 20px;
     width: 135px;
+}
+
+#setting {
+    display: flex;
+    flex-flow: column;
+    gap: 50px;
 }

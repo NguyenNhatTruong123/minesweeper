@@ -76,6 +76,10 @@ function createTdElement(i, j) {
     return td;
 }
 
+function restart() {
+    setUpTableGrid()
+}
+
 function clickCell(i, j) {
     Cells[i][j].showCell(i, j)
 }
