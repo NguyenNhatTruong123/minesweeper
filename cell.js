@@ -11,6 +11,7 @@ class Cell {
         this.neighborBee = -1
         this.numCols = numCols
         this.numRows = numRows
+        this.isPinFlag = false
 
         switch (numCols) {
             case 15:
@@ -48,8 +49,15 @@ class Cell {
 
     pinFlag(i, j) {
         let td = document.getElementById(i + "&" + j)
-        td.innerHTML = "&#128681"
-        td.style = "background-color: lightgreen;" + this.style
+        if (!Cells[i][j].isPinFlag) {
+            td.innerHTML = "&#128681"
+            td.style = "background-color: lightgreen;" + this.style
+            Cells[i][j].isPinFlag = true
+        } else {
+            td.innerHTML = ""
+            td.style = this.style
+            Cells[i][j].isPinFlag = false
+        }
     }
 
     showAllCell() {
