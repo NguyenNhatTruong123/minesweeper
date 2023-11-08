@@ -23,3 +23,10 @@ p {
     flex-flow: column;
     gap: 50px;
 }
+
+#winStatus {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    text-wrap: nowrap;
+}

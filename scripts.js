@@ -1,11 +1,13 @@
 document.addEventListener('contextmenu', event => event.preventDefault());
 var grid = document.getElementById("grid")
+var tableGridValue = parseInt(document.getElementById("gridSize").value);
+var numBooms = parseFloat(document.getElementById("numBoom").value);
+var winStatus = document.getElementById("winStatus");
+var gameButton = document.getElementById("gameButton");
 
 var numCellsCols = 15;
 var numCellsRows = 15;
 var Cells;
-var tableGridValue = parseInt(document.getElementById("gridSize").value);
-var numBooms = parseFloat(document.getElementById("numBoom").value);
 
 function changeGridSize() {
     tableGridValue = parseInt(document.getElementById("gridSize").value);
@@ -25,6 +27,8 @@ function changeNumBooms() {
 }
 
 function setUpTableGrid() {
+    winStatus.style.display = "none"
+    gameButton.innerText = "Restart Game"
     grid.innerHTML = ""
     var gridTable = document.createElement('table')
     Cells = new Array(numCellsRows)
@@ -82,8 +86,27 @@ function restart() {
 
 function clickCell(i, j) {
     Cells[i][j].showCell(i, j)
+    if (Cells[i][j].bee) {
+        gameOver()
+    }
 }
 
 function setFlag(i, j) {
     Cells[i][j].pinFlag(i, j)
+}
+
+function gameOver() {
+    winStatus.style.display = ""
+    winStatus.innerText = "THUA RỒI\n╭∩╮( •̀_•́ )╭∩╮"
+    winStatus.style.color = "red"
+
+    gameButton.innerText = "Try Again"
+}
+
+function winGame() {
+    winStatus.style.display = ""
+    winStatus.innerText = "THẮNG RỒI\n( ๑ ˃̵ᴗ˂̵)و ♡"
+    winStatus.style.color = "darkgreen"
+
+    gameButton.innerText = "New Game"
 }

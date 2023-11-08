@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css.css" />
   </head>
   <body onload="setUpTableGrid()">
-    <div style="display: flex; gap: 50px">
+    <div style="display: flex; gap: 50px; flex-flow: row-reverse">
       <div id="setting">
         <div>
           <p>Chọn kích cỡ:</p>
@@ -27,8 +27,16 @@
             <option value="0.5">50%</option>
           </select>
         </div>
-        <button type="button" onclick="restart()">Restart the game</button>
+        <button
+          id="gameButton"
+          style="width: 125px"
+          type="button"
+          onclick="restart()"
+        >
+          Restart the game
+        </button>
       </div>
+      <div style="display: none" id="winStatus"></div>
 
       <div id="grid"></div>
       <br />
