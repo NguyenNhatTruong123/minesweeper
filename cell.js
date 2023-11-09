@@ -1,7 +1,5 @@
 class Cell {
-    constructor(i, j, numCols, numRows, numBooms) {
-        this.i = i
-        this.j = j
+    constructor(numCols, numRows, numBooms) {
         if (Math.random(1) > 1 - numBooms) {
             this.bee = true
         } else {
@@ -107,10 +105,6 @@ class Cell {
                 }
             }
         }
-    }
-
-    gameOver() {
-        alert("GAME OVER")
     }
 
 }

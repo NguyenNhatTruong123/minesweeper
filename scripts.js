@@ -40,7 +40,7 @@ function setUpTableGrid() {
     for (let i = 0; i < numCellsRows; i++) {
         var gridTableRecord = document.createElement("tr")
         for (let j = 0; j < numCellsCols; j++) {
-            let cell = new Cell(i, j, numCellsCols, numCellsRows, numBooms)
+            let cell = new Cell(numCellsCols, numCellsRows, numBooms)
             Cells[i][j] = cell
             let tableData = createTdElement(i, j)
             gridTableRecord.appendChild(tableData)
@@ -89,6 +89,10 @@ function clickCell(i, j) {
     if (Cells[i][j].bee) {
         gameOver()
     }
+
+    if (checkIsWin()) {
+        winGame()
+    }
 }
 
 function setFlag(i, j) {
@@ -109,4 +113,16 @@ function winGame() {
     winStatus.style.color = "darkgreen"
 
     gameButton.innerText = "New Game"
+}
+
+function checkIsWin() {
+    for (let i = 0; i < numCellsRows; i++) {
+        for (let j = 0; j < numCellsCols; j++) {
+            if (Cells[i][j].bee) continue
+            else {
+                if (!Cells[i][j].reveal) return false
+            }
+        }
+    }
+    return true;
 }
